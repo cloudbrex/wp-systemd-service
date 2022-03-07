@@ -1,0 +1,23 @@
+---
+- name: cpy wpbootstrap.sh file
+  template:
+    src: wpbootstrap.j2
+    dest: /usr/bin/wpbootstrap.sh
+    mode: 0744
+
+- name: Install wpbootstrap systemd unit file 
+  template:
+    src: wpbootstrap.service.j2
+    dest: /etc/systemd/system/wpbootstrap.service
+    mode: 644
+  register: result
+
+- name: Ensure systemd is reload if wpbootstrap.service has changed
+  shell: systemctl daemon-reload
+  when: result.changed
+
+- name: Restart wpbootstrap service
+  systemd:
+    name: wpbootstrap.service
+    enabled: false
+    state: stopped

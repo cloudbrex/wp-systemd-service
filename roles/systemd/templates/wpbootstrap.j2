@@ -1,0 +1,18 @@
+#!/bin/bash
+
+su - ubuntu << EOF
+
+echo "cloning repo with Wordpress Playbook"
+git clone https://github.com/cloudbrex/wpstack.git /tmp/app
+
+echo "install the dependent roles and collections"
+cd /tmp/app
+ansible-galaxy install -r requirements.yml 
+
+echo "run ansible-playbook"
+cd /tmp/app
+ansible-playbook -i inventory setup.yml -b 
+
+exit 0
+
+EOF

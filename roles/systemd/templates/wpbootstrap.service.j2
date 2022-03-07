@@ -1,0 +1,12 @@
+[Unit]
+Description=wpbootstrap
+After=cloud-final.service
+
+[Service]
+Type=simple
+ExecStartPre=/usr/bin/cloud-init modules --mode=final (code=exited, status=0/SUCCESS)
+ExecStart=/usr/bin/nohup /usr/bin/wpbootstrap.sh
+PIDFile=/var/run/wpbootstrap.pid
+
+[Install]
+WantedBy=multi-user.target
