@@ -19,5 +19,5 @@
 - name: Restart wpbootstrap service
   systemd:
     name: wpbootstrap.service
-    enabled: true
+    enabled: yes
     state: started
